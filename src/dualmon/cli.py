@@ -63,12 +63,17 @@ def parse_args(screens):
 def make_epilog():
     import edider
     mons = edider.get_monitors()
-    mtxts = ['Monitor info:']
+    mtupls = []
     for mon in mons:
-        mtupl = mon.output_name, mon.name, mon.width_in_pixels, mon.height_in_pixels
-        mtxt = '{}\t{}\t{}x{}'.format(*mtupl)
-        mtxts.append(mtxt)
-    return '\n'.join(mtxts)
+        xy = '{}x{}'.format(mon.width_in_pixels, mon.height_in_pixels)
+        mtupl = mon.output_name, mon.name, xy, mon.status, mon.is_primary
+        mtupls.append(mtupl)
+    from tabulate import tabulate
+    return tabulate(
+        mtupls,
+        headers=('Output', 'Name', 'Resolution', 'Status', 'Primary'),
+        tablefmt='fancy_grid'
+    )
 
 
 def make_cmd(screens, args):
