@@ -1,0 +1,3 @@
+tabulate
+https://github.com/frostidaho/python-edider/tarball/master#egg=edider
+

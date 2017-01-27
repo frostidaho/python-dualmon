@@ -61,14 +61,12 @@ test: ## run tests for python3
 	@echo "Running tests for python3"
 	@echo "----------------------------------------"
 	eval `which py.test-3 || which py.test` "$(project_dir)tests/"
-	
 
 test2: ## run tests for python2
 	@echo "----------------------------------------"
 	@echo "Running tests for python2"
 	@echo "----------------------------------------"
 	eval `which py.test-2 || which py.test2` "$(project_dir)tests/"
-	
 
 
 docs: ## generate Sphinx HTML documentation, including API docs
@@ -92,36 +90,42 @@ install: clean ## install the package to the active Python's site-packages - pyt
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon - may need root\n\t `pip3 --version`"
 	@echo "----------------------------------------"
+	pip3 install -r $(project_dir)requirements.txt
 	pip3 install $(project_dir)
 
 install2: clean ## install the package to the active Python's site-packages - python2
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon - may need root\n\t `pip2 --version`"
 	@echo "----------------------------------------"
+	pip2 install -r $(project_dir)requirements.txt
 	pip2 install $(project_dir)
 
 install-user: ## install the package to the user's home directory - python3
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon for ${USER}\n\t `pip3 --version`"
 	@echo "----------------------------------------"
+	pip3 install --user -r $(project_dir)requirements.txt
 	pip3 install --user $(project_dir)
 
 install-user2: ## install the package to the user's home directory - python2
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon for ${USER}\n\t `pip2 --version`"
 	@echo "----------------------------------------"
+	pip2 install --user -r $(project_dir)requirements.txt
 	pip2 install --user $(project_dir)
 
 install-develop: ## install the package to the user's home directory as symlinks - python3
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon for ${USER}\n\t `pip3 --version`"
 	@echo "----------------------------------------"
+	pip3 install --user -r $(project_dir)requirements.txt
 	pip3 install --user -e $(project_dir)
 
 install-develop2: ## install the package to the user's home directory as symlinks - python2
 	@echo "----------------------------------------"
 	@echo -e "Installing dualmon for ${USER}\n\t `pip2 --version`"
 	@echo "----------------------------------------"
+	pip2 install --user -r $(project_dir)requirements.txt
 	pip2 install --user -e $(project_dir)
 
 uninstall: ## uninstall the package - python3
