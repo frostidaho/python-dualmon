@@ -14,9 +14,11 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
+from __future__ import print_function
 import argparse
 from argparse import RawTextHelpFormatter
 from subprocess import Popen, PIPE
+
 PLACE_SECONDARY = 'right-of'    # default value
 
 def run_cmd(cmd, **kwargs):
@@ -94,6 +96,7 @@ def make_cmd(screens, args):
         print('Using default primary monitor: {}'.format(screens[0]))
 
     if args.off:
+        total_cmd.extend(['--output', screens[0], '--primary', '--auto'])
         for screen in screens[1:]:
             total_cmd.extend(['--output', screen, '--off'])
         return total_cmd
@@ -111,5 +114,5 @@ def main(args=None):
     screens = get_connected_screens(read_xrandr())
     args = parse_args(screens)
     cmd = make_cmd(screens, args)
-    # print(*cmd)
+    print(*cmd)
     run_cmd(cmd)
